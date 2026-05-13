@@ -9,83 +9,76 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
-            background: linear-gradient(135deg, #0f172a 0%, #1e2937 50%, #334155 100%);
+            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
             min-height: 100vh; 
-            color: #e2e8f0;
+            color: #1e2937;
         }
         .app { 
             max-width: 640px; 
             margin: 0 auto; 
-            background: rgba(15, 23, 42, 0.95); 
+            background: #ffffff; 
             min-height: 100vh; 
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
         }
 
         .topbar { 
-            background: rgba(15, 23, 42, 0.98); 
-            padding: 16px 20px; 
+            background: #0f172a; 
+            color: white;
+            padding: 18px 20px; 
             display: flex; 
             align-items: center; 
             justify-content: space-between; 
             position: sticky; 
             top: 0; 
-            z-index: 99; 
-            border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+            z-index: 99;
         }
-        .topbar-title { 
-            font-size: 19px; 
-            font-weight: 700; 
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        .topbar-title { font-size: 19px; font-weight: 700; }
 
         .admin-btn { 
-            padding: 8px 18px; 
-            border-radius: 9999px; 
-            font-size: 13px; 
+            padding: 9px 20px; 
+            border-radius: 50px; 
+            font-size: 13.5px; 
             font-weight: 600; 
-            cursor: pointer; 
-            background: rgba(59, 130, 246, 0.9); 
+            background: #1e40af; 
             color: white; 
             border: none;
+            cursor: pointer;
         }
 
         .login-panel, .admin-banner { 
             margin: 16px; 
-            padding: 18px; 
-            border-radius: 16px; 
-            background: rgba(30, 41, 59, 0.85);
-            border: 1px solid rgba(148, 163, 184, 0.2);
+            padding: 20px; 
+            border-radius: 20px; 
+            background: white; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
         }
 
         .venue-tabs { 
             display: flex; 
             overflow-x: auto; 
-            padding: 12px 12px 8px; 
-            gap: 8px; 
-            background: rgba(15, 23, 42, 0.95);
-            scrollbar-width: none;
+            padding: 16px 16px 10px; 
+            gap: 10px; 
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
         }
         .venue-tab { 
-            padding: 10px 18px; 
-            font-size: 14px; 
+            padding: 11px 18px; 
+            font-size: 14.5px; 
             white-space: nowrap; 
-            cursor: pointer; 
-            background: rgba(51, 65, 85, 0.7); 
+            border-radius: 9999px; 
+            background: #f1f5f9; 
             border: none; 
-            border-radius: 12px; 
-            color: #cbd5e1; 
+            color: #64748b;
+            cursor: pointer;
             transition: all 0.2s;
         }
         .venue-tab.active { 
-            background: #3b82f6; 
+            background: #1e40af; 
             color: white; 
-            font-weight: 600; 
+            font-weight: 600;
         }
 
-        .venue-name { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+        .venue-name { font-size: 21px; font-weight: 700; color: #1e2937; margin-bottom: 8px; }
         .badge { 
             display: inline-flex; align-items: center; gap: 6px; 
             font-size: 13px; padding: 6px 14px; 
@@ -93,103 +86,104 @@
         }
 
         .day-tabs { 
-            display: flex; gap: 8px; padding: 12px 16px; overflow-x: auto; 
+            display: flex; gap: 10px; padding: 16px; overflow-x: auto; background: white;
         }
         .day-tab { 
-            padding: 9px 16px; border-radius: 12px; font-size: 14px; 
-            background: rgba(51, 65, 85, 0.6); border: none; color: #e2e8f0;
-            white-space: nowrap; cursor: pointer; transition: all 0.2s;
+            padding: 10px 18px; border-radius: 9999px; font-size: 14px; 
+            background: #f8fafc; border: 1px solid #e2e8f0;
+            white-space: nowrap; cursor: pointer;
         }
-        .day-tab.active { background: #3b82f6; color: white; font-weight: 600; }
+        .day-tab.active { 
+            background: #1e40af; color: white; border-color: #1e40af;
+        }
 
-        .stats { display: flex; gap: 10px; padding: 0 16px 16px; }
+        .stats { display: flex; gap: 12px; padding: 0 20px 20px; }
         .stat { 
-            flex: 1; padding: 14px; border-radius: 16px; 
-            text-align: center; background: rgba(30, 41, 59, 0.8);
+            flex: 1; padding: 16px 12px; border-radius: 20px; 
+            text-align: center; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        .stat-num { font-size: 28px; font-weight: 800; }
+        .stat-num { font-size: 29px; font-weight: 700; color: #1e40af; }
 
-        .slots { padding: 0 16px 30px; display: flex; flex-direction: column; gap: 14px; }
+        .slots { padding: 0 20px 40px; display: flex; flex-direction: column; gap: 16px; }
 
         .slot-card { 
-            background: rgba(30, 41, 59, 0.85); 
-            border: 1px solid rgba(148, 163, 184, 0.2); 
-            border-radius: 16px; 
+            background: white; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 20px; 
             overflow: hidden; 
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            transition: all 0.25s;
         }
         .slot-card.s-booked { 
-            background: rgba(15, 23, 42, 0.95); 
-            border-color: #f87171; 
+            background: #fee2e2; 
+            border-color: #fca5a5; 
         }
         .slot-card.clickable:hover { 
-            transform: translateY(-6px); 
-            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4); 
+            transform: translateY(-5px); 
+            box-shadow: 0 15px 30px rgba(30, 64, 175, 0.12); 
         }
 
         .slot-main { 
-            padding: 18px; 
+            padding: 18px 20px; 
             display: flex; 
             align-items: center; 
             justify-content: space-between; 
         }
-        .slot-time { font-size: 17px; font-weight: 700; }
+        .slot-time { font-size: 17px; font-weight: 700; color: #1e2937; }
 
-        .court-row { padding: 0 18px 16px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .court-row { padding: 0 20px 16px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .cpip { 
-            width: 34px; height: 34px; border-radius: 10px; 
+            width: 36px; height: 36px; border-radius: 10px; 
             display: flex; align-items: center; justify-content: center; 
-            font-size: 13px; font-weight: 700;
+            font-size: 13.5px; font-weight: 700;
         }
 
         .court-editor { 
-            padding: 16px; 
-            background: rgba(249, 115, 22, 0.12); 
-            border-top: 1px solid rgba(249, 115, 22, 0.3); 
+            padding: 16px 20px; 
+            background: #f0f9ff; 
+            border-top: 1px solid #bae6fd;
         }
         .ce-btn { 
-            padding: 9px 14px; margin: 4px 3px; border-radius: 10px; 
-            font-size: 13.5px; cursor: pointer; background: rgba(51,65,85,0.9); color: white; border: none;
+            padding: 10px 16px; margin: 4px 4px; border-radius: 12px; 
+            font-size: 14px; cursor: pointer; background: white; border: 1px solid #bae6fd;
         }
 
         .footer { 
-            padding: 30px 16px 40px; 
+            padding: 40px 20px 50px; 
             text-align: center; 
-            color: #94a3b8; 
-            font-size: 13.5px; 
+            color: #64748b; 
+            font-size: 14px; 
         }
     </style>
 </head>
 <body>
 <div class="app">
-
     <div class="topbar">
         <div>
             <div class="topbar-title">🏸 場地租借查詢</div>
-            <div style="font-size:13px;color:#94a3b8;">即時查看可租時段</div>
         </div>
         <button class="admin-btn" id="adminBtn" onclick="handleAdminBtn()">管理員</button>
     </div>
 
     <div class="login-panel" id="loginPanel" style="display:none">
-        <div style="font-weight:600;margin-bottom:12px;color:#fff;">管理員登入</div>
+        <div style="font-weight:600;margin-bottom:12px;">管理員登入</div>
         <div style="display:flex;gap:10px;">
             <input id="pwInput" type="password" placeholder="輸入管理密碼" 
-                   style="flex:1;padding:12px;border-radius:12px;border:none;background:rgba(255,255,255,0.1);color:white;" 
+                   style="flex:1;padding:14px;border-radius:12px;border:1px solid #cbd5e1;" 
                    onkeydown="if(event.key==='Enter')doLogin()">
-            <button onclick="doLogin()" style="padding:0 24px;border-radius:12px;background:#3b82f6;color:white;border:none;font-weight:600;">確認</button>
+            <button onclick="doLogin()" style="padding:0 24px;border-radius:12px;background:#1e40af;color:white;border:none;font-weight:600;">確認</button>
         </div>
-        <div id="loginErr" style="color:#f87171;font-size:13px;margin-top:10px;display:none;">密碼錯誤，請重試</div>
+        <div id="loginErr" style="color:#ef4444;font-size:13px;margin-top:10px;display:none;">密碼錯誤</div>
     </div>
 
-    <div class="admin-banner" id="adminBanner" style="display:none">
+    <div class="admin-banner" id="adminBanner" style="display:none;background:#f0f9ff;border:1px solid #bae6fd;color:#1e40af;">
         <span>✏️ 管理模式 - 點擊時段調整剩餘面數</span>
-        <button onclick="logout()" style="background:none;border:none;color:#f59e0b;font-weight:600;">退出</button>
+        <button onclick="logout()" style="background:none;border:none;color:#1e40af;font-weight:600;">退出</button>
     </div>
 
     <div class="venue-tabs" id="venueTabs"></div>
 
-    <div style="padding:18px 20px 12px;">
+    <div style="padding:20px 20px 12px;">
         <div class="venue-name" id="venueName"></div>
         <div id="venueBadges"></div>
     </div>
@@ -197,9 +191,9 @@
     <div class="day-tabs" id="dayTabs"></div>
 
     <div class="stats">
-        <div class="stat"><div class="stat-num" id="sTotal">0</div><div style="font-size:12.5px;color:#94a3b8;">總時段</div></div>
-        <div class="stat"><div class="stat-num" id="sFree">0</div><div style="font-size:12.5px;color:#94a3b8;">空閒</div></div>
-        <div class="stat" id="sBookedCard"><div class="stat-num" id="sBooked">0</div><div style="font-size:12.5px;color:#94a3b8;">已租</div></div>
+        <div class="stat"><div class="stat-num" id="sTotal">0</div><div style="font-size:13px;color:#64748b;margin-top:4px;">總時段</div></div>
+        <div class="stat"><div class="stat-num" id="sFree">0</div><div style="font-size:13px;color:#64748b;margin-top:4px;">空閒</div></div>
+        <div class="stat" id="sBookedCard"><div class="stat-num" id="sBooked">0</div><div style="font-size:13px;color:#64748b;margin-top:4px;">已租</div></div>
     </div>
 
     <div class="slots" id="slots"></div>
@@ -244,9 +238,13 @@ let isAdmin = false;
 let activeEditor = null;
 let state = {};
 
-// localStorage
-function loadState() { const saved = localStorage.getItem('venueBookingState'); if(saved) state = JSON.parse(saved); }
-function saveState() { localStorage.setItem('venueBookingState', JSON.stringify(state)); }
+function loadState() {
+    const saved = localStorage.getItem('venueBookingState');
+    if (saved) state = JSON.parse(saved);
+}
+function saveState() {
+    localStorage.setItem('venueBookingState', JSON.stringify(state));
+}
 
 function getRemaining(si) {
     const v = VENUES[venueIdx];
@@ -260,6 +258,7 @@ function getRemaining(si) {
 function handleAdminBtn() {
     if (isAdmin) { logout(); return; }
     document.getElementById('loginPanel').style.display = 'block';
+    document.getElementById('pwInput').focus();
 }
 
 function doLogin() {
@@ -281,19 +280,19 @@ function logout() {
     renderSlots();
 }
 
-// 渲染函數
+// 渲染
 function renderVenueTabs() {
     document.getElementById('venueTabs').innerHTML = VENUES.map((v,i) => 
-        `<button class="venue-tab${i===venueIdx?' active':''}" onclick="switchVenue(${i})">${v.name.split(' ')[0]}</button>`
+        `<button class="venue-tab${i===venueIdx?' active':''}" onclick="switchVenue(${i})">${v.name}</button>`
     ).join('');
 }
 
 function renderVenueInfo() {
     const v = VENUES[venueIdx];
     document.getElementById('venueName').textContent = v.name;
-    let badges = `<span class="badge" style="background:rgba(59,130,246,0.2);color:#60a5fa;">${v.courtDesc}</span>`;
-    if (v.fullCourtOnly) badges += `<span class="badge" style="background:rgba(249,115,22,0.2);color:#fb923c;">⚠️ 全場租借為主</span>`;
-    document.getElementById('venueBadges').innerHTML = badges;
+    let html = `<span class="badge" style="background:#dbeafe;color:#1e40af;">${v.courtDesc}</span>`;
+    if (v.fullCourtOnly) html += `<span class="badge" style="background:#fef3c7;color:#92400e;">⚠️ 全場租借為主</span>`;
+    document.getElementById('venueBadges').innerHTML = html;
 }
 
 function renderDayTabs() {
@@ -323,17 +322,20 @@ function renderSlots() {
 
         let badge = fullyBooked ? '已全租' : v.fullCourtOnly ? '可租' : `剩餘 ${rem}/${max} 面`;
 
-        let pips = !v.fullCourtOnly ? Array.from({length: max}, (_,i) => 
-            `<div class="cpip" style="background:${i<rem?'#4ade80':'#475569'};color:${i<rem?'#052e16':'#e2e8f0'};">${i+1}</div>`
-        ).join('') : '';
+        let pips = '';
+        if (!v.fullCourtOnly) {
+            pips = Array.from({length: max}, (_,i) => 
+                `<div class="cpip" style="background:${i<rem?'#22d3ee':'#e2e8f0'};color:${i<rem?'#164e63':'#64748b'};">${i+1}</div>`
+            ).join('');
+        }
 
         let editor = '';
         if (isAdmin && activeEditor === si && !v.fullCourtOnly) {
             editor = `<div class="court-editor">設定剩餘面數：<br>`;
             for (let i = max; i >= 0; i--) {
-                const isActive = rem === i ? 'background:#3b82f6;color:white;' : '';
+                const active = rem === i ? 'background:#1e40af;color:white;' : '';
                 const text = i === 0 ? '全部租出' : `剩餘 ${i} 面`;
-                editor += `<button class="ce-btn" style="${isActive}" onclick="setRemaining(${si},${i});event.stopImmediatePropagation()">${text}</button>`;
+                editor += `<button class="ce-btn" style="${active}" onclick="setRemaining(${si},${i});event.stopImmediatePropagation()">${text}</button>`;
             }
             editor += '</div>';
         }
@@ -342,9 +344,9 @@ function renderSlots() {
         <div class="slot-card ${fullyBooked ? 's-booked' : ''}${clickable}" onclick="handleSlotClick(${si})">
             <div class="slot-main">
                 <div class="slot-time">${slot}</div>
-                <span class="slot-badge" style="background:${fullyBooked?'#b91c1c':'#22c55e'};color:white;">${badge}</span>
+                <span class="slot-badge" style="background:${fullyBooked?'#ef4444':'#22c55e'};color:white;padding:8px 16px;">${badge}</span>
             </div>
-            ${pips ? `<div class="court-row">面數狀況：<div style="display:flex;gap:6px;">${pips}</div></div>` : ''}
+            ${pips ? `<div class="court-row">面數： <div style="display:flex;gap:6px;">${pips}</div></div>` : ''}
             ${editor}
         </div>`;
     }).join('');
@@ -371,8 +373,14 @@ function setRemaining(si, count) {
     renderSlots();
 }
 
-function switchVenue(i) { venueIdx = i; activeEditor = null; renderVenueTabs(); renderVenueInfo(); renderSlots(); }
-function switchDay(i) { dayIdx = i; activeEditor = null; renderDayTabs(); renderSlots(); }
+function switchVenue(i) {
+    venueIdx = i; activeEditor = null;
+    renderVenueTabs(); renderVenueInfo(); renderSlots();
+}
+function switchDay(i) {
+    dayIdx = i; activeEditor = null;
+    renderDayTabs(); renderSlots();
+}
 
 // 初始化
 loadState();
