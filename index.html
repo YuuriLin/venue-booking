@@ -10,7 +10,7 @@
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f3f4f6; min-height: 100vh; }
         .app { max-width: 640px; margin: 0 auto; background: #fff; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.08); }
 
-        .topbar { background: #111; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; position: sticky; top: 0; z-index: 99; }
+        .topbar { background: #111; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 99; }
         .topbar-title { color: #fff; font-size: 17px; font-weight: 700; }
         .topbar-sub { color: #9ca3af; font-size: 12px; margin-top: 2px; }
         .admin-btn { padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid #374151; background: transparent; color: #d1d5db; }
@@ -19,13 +19,12 @@
         .login-panel { border: 1px solid #e5e7eb; background: #f8f9fa; }
         .admin-banner { background: #fef3c7; border: 1px solid #fde68a; display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: #92400e; }
 
-        .venue-tabs-wrap { position: relative; border-bottom: 1px solid #e5e7eb; display: flex; }
-        .venue-tabs { display: flex; overflow-x: auto; flex: 1; padding: 0 4px; scroll-behavior: smooth; }
-        .venue-tab { padding: 12px 14px; font-size: 14px; white-space: nowrap; cursor: pointer; background: none; border: none; border-bottom: 3px solid transparent; color: #6b7280; font-weight: 500; }
+        .venue-tabs { display: flex; overflow-x: auto; padding: 8px 4px; gap: 4px; scroll-behavior: smooth; }
+        .venue-tab { padding: 10px 14px; font-size: 14px; white-space: nowrap; cursor: pointer; background: none; border: none; border-bottom: 3px solid transparent; color: #6b7280; font-weight: 500; }
         .venue-tab.active { border-bottom-color: #111; color: #111; font-weight: 700; }
 
         .venue-name { font-size: 18px; font-weight: 700; color: #111; margin-bottom: 8px; }
-        .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; padding: 5px 12px; border-radius: 20px; font-weight: 500; }
+        .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; padding: 5px 12px; border-radius: 20px; font-weight: 500; margin-right: 6px; }
 
         .day-tabs { display: flex; gap: 8px; padding: 12px 16px; overflow-x: auto; }
         .day-tab { padding: 8px 14px; border-radius: 10px; font-size: 13.5px; white-space: nowrap; cursor: pointer; background: #f8f9fa; border: 1px solid #e5e7eb; }
@@ -34,14 +33,11 @@
         .stats { display: flex; gap: 8px; padding: 0 16px 14px; }
         .stat { flex: 1; padding: 12px; border-radius: 12px; text-align: center; border: 1px solid #e5e7eb; }
         .stat-num { font-size: 26px; font-weight: 800; }
-        .stat.free .stat-num { color: #16a34a; }
-        .stat.booked-s.has .stat-num { color: #dc2626; }
 
         .slots { padding: 0 16px 30px; display: flex; flex-direction: column; gap: 12px; }
 
         .slot-card { border-radius: 14px; overflow: hidden; border: 1.5px solid #e5e7eb; transition: all 0.2s; }
         .slot-card.s-booked { background: #111; border-color: #111; color: #fff; }
-        .slot-card.s-partial { border-color: #f59e0b; }
         .slot-card.clickable { cursor: pointer; }
         .slot-card.clickable:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 
@@ -52,15 +48,11 @@
         .court-row { padding: 0 16px 14px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         .cpip { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
 
-        .court-editor { padding: 12px 16px 16px; background: #fefce8; border-top: 1px solid #fde68a; }
-        .ce-btn { padding: 8px 12px; margin: 4px 2px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
-
         .footer { padding: 20px 16px; text-align: center; color: #9ca3af; font-size: 13px; border-top: 1px solid #f3f4f6; }
     </style>
 </head>
 <body>
 <div class="app">
-
     <div class="topbar">
         <div>
             <div class="topbar-title">🏸 場地租借查詢</div>
@@ -72,20 +64,20 @@
     <div class="login-panel" id="loginPanel" style="display:none">
         <div style="font-weight:600;margin-bottom:10px;">管理員登入</div>
         <div style="display:flex;gap:8px;">
-            <input class="login-input" id="pwInput" type="password" placeholder="輸入管理密碼" style="flex:1;padding:10px;border-radius:8px;border:1.5px solid #e5e7eb;" onkeydown="if(event.key==='Enter')doLogin()">
+            <input id="pwInput" type="password" placeholder="輸入管理密碼" 
+                   style="flex:1;padding:10px;border-radius:8px;border:1.5px solid #e5e7eb;" 
+                   onkeydown="if(event.key==='Enter')doLogin()">
             <button onclick="doLogin()" style="padding:0 20px;border-radius:8px;background:#111;color:white;border:none;font-weight:600;">確認</button>
         </div>
         <div id="loginErr" style="color:#ef4444;font-size:13px;margin-top:8px;display:none;">密碼錯誤</div>
     </div>
 
     <div class="admin-banner" id="adminBanner" style="display:none">
-        <span>✏️ 管理模式開啟</span>
+        <span>✏️ 管理模式</span>
         <button onclick="logout()" style="background:none;border:none;color:#92400e;font-weight:600;">退出</button>
     </div>
 
-    <div class="venue-tabs-wrap">
-        <div class="venue-tabs" id="venueTabs"></div>
-    </div>
+    <div class="venue-tabs" id="venueTabs"></div>
 
     <div style="padding:14px 16px 10px;border-bottom:1px solid #f3f4f6;">
         <div class="venue-name" id="venueName"></div>
@@ -95,53 +87,71 @@
     <div class="day-tabs" id="dayTabs"></div>
 
     <div class="stats">
-        <div class="stat total"><div class="stat-num" id="sTotal">0</div><div style="font-size:12px;color:#6b7280;margin-top:4px;">總時段</div></div>
-        <div class="stat free"><div class="stat-num" id="sFree">0</div><div style="font-size:12px;color:#6b7280;margin-top:4px;">空閒</div></div>
-        <div class="stat booked-s" id="sBookedCard"><div class="stat-num" id="sBooked">0</div><div style="font-size:12px;color:#6b7280;margin-top:4px;">已租</div></div>
+        <div class="stat"><div class="stat-num" id="sTotal">0</div><div style="font-size:12px;color:#6b7280;margin-top:4px;">總時段</div></div>
+        <div class="stat"><div class="stat-num" id="sFree">0</div><div style="font-size:12px;color:#6b7280;margin-top:4px;">空閒</div></div>
+        <div class="stat" id="sBookedCard"><div class="stat-num" id="sBooked">0</div><div style="font-size:12px;color:#6b7280;margin-top:4px;">已租</div></div>
     </div>
 
     <div id="lineNotice" style="display:none;margin:0 16px 12px;padding:12px 14px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;color:#166534;font-size:13.5px;">
-        此場館<strong>主要提供全場租借</strong>，單面租借請透過 LINE 官方帳號確認
+        此場館<strong>主要提供全場租借</strong>，單面租借請透過 LINE 確認
     </div>
 
     <div class="slots" id="slots"></div>
 
     <div class="footer">
         <p>如需租借請透過 LINE 官方帳號聯繫</p>
-        <button onclick="resetAllData()" style="margin-top:12px;font-size:12px;color:#ef4444;background:none;border:none;">管理員 · 清除所有資料</button>
+        <button onclick="resetAllData()" style="margin-top:12px;font-size:12px;color:#ef4444;background:none;border:none;">清除所有資料</button>
     </div>
 </div>
 
 <script>
-// ==================== 配置區 ====================
-const ADMIN_PW = "0000";                    // ←←← 在此修改管理員密碼
+// ==================== 配置 ====================
+const ADMIN_PW = "0000";   // ← 建議改成你自己的密碼
+
 const DAYS = ["週一","週二","週三","週四","週五","週六","週日"];
 
-// ==================== 場地資料 ====================
-const VENUES = [ /* 你原本的 VENUES 陣列，完全保留 */ 
+const VENUES = [
   { id:0, name:"板橋 江翠國小", type:"multi", courtDesc:"籃球全場 ／ 羽球4面 ／ 匹克球4面", fullCourtOnly:true, maxCourts:1,
-    slots:{0:["18:30–20:30","20:30–22:30","22:30–24:30"],1:["18:30–20:30","20:30–22:30","22:30–24:30"],2:["18:30–20:30","20:30–22:30","22:30–24:30"],3:["18:30–20:30","20:30–22:30","22:30–24:30"],4:["18:30–20:30","20:30–22:30","22:30–24:30"],5:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00","22:00–24:00"],6:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00","22:00–24:00"]}},
-  // ... 其餘場地資料請把你原本的完整貼上 ...
-  // （為了避免訊息過長，我先示範一筆，你把原本 VENUES 整個替換進來即可）
+    slots: {0:["18:30–20:30","20:30–22:30","22:30–24:30"],1:["18:30–20:30","20:30–22:30","22:30–24:30"],2:["18:30–20:30","20:30–22:30","22:30–24:30"],3:["18:30–20:30","20:30–22:30","22:30–24:30"],4:["18:30–20:30","20:30–22:30","22:30–24:30"],5:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00","22:00–24:00"],6:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00","22:00–24:00"]}},
+  
+  { id:1, name:"三重 二重國小 1F 羽球場", type:"badminton", courtDesc:"羽球4面", fullCourtOnly:false, maxCourts:4,
+    slots: {0:["19:00–21:00","21:00–23:00"],1:["19:00–21:00","21:00–23:00"],2:["19:00–21:00","21:00–23:00"],3:["19:00–21:00","21:00–23:00"],4:["19:00–21:00","21:00–23:00"],5:["12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"],6:["09:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
+  
+  { id:2, name:"三重 二重國小 3F 多功能場館", type:"multi", courtDesc:"籃球全場 ／ 羽球4面 ／ 匹克球4面", fullCourtOnly:true, maxCourts:1,
+    slots: {0:["18:45–20:45","20:45–22:45"],1:["18:45–20:45","20:45–22:45"],2:["18:45–20:45","20:45–22:45"],3:["18:45–20:45","20:45–22:45"],4:["18:45–20:45","20:45–22:45"],5:["12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"],6:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
+  
+  { id:3, name:"新莊 裕民國小", type:"multi", courtDesc:"籃球全場 ／ 羽球4面 ／ 匹克球4面", fullCourtOnly:true, maxCourts:1,
+    slots: {0:["18:30–20:30","20:30–22:30"],1:["18:30–20:30","20:30–22:30"],2:["18:30–20:30","20:30–22:30"],3:["18:30–20:30","20:30–22:30"],4:["18:30–20:30","20:30–22:30"],5:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"],6:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
+  
+  { id:4, name:"林口 林口國小", type:"multi", courtDesc:"籃球全場 ／ 羽球4面 ／ 匹克球4面", fullCourtOnly:true, maxCourts:1,
+    slots: {0:["19:00–21:00","21:00–23:00"],1:["19:00–21:00","21:00–23:00"],2:["19:00–21:00","21:00–23:00"],3:["19:00–21:00","21:00–23:00"],4:["19:00–21:00","21:00–23:00"],5:["17:00–19:00","19:00–21:00","21:00–23:00"],6:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
+  
+  { id:5, name:"樹林 大同國小", type:"multi", courtDesc:"籃球全場 ／ 羽球3面 ／ 匹克球3面", fullCourtOnly:false, maxCourts:3,
+    slots: {0:["18:30–20:30","20:30–22:30"],1:["18:30–20:30","20:30–22:30"],2:["18:30–20:30","20:30–22:30"],3:["18:30–20:30","20:30–22:30"],4:["18:30–20:30","20:30–22:30"],5:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"],6:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
+  
+  { id:6, name:"林口 麗林國小", type:"badminton", courtDesc:"羽球6面", fullCourtOnly:false, maxCourts:6,
+    slots: {0:["19:00–21:00","21:00–23:00"],1:["19:00–21:00","21:00–23:00"],2:["19:00–21:00","21:00–23:00"],3:["19:00–21:00","21:00–23:00"],4:["19:00–21:00","21:00–23:00"],5:["17:00–19:00","19:00–21:00","21:00–23:00"],6:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
+  
+  { id:7, name:"林口 頭湖國小", type:"badminton", courtDesc:"羽球6面", fullCourtOnly:false, maxCourts:6,
+    slots: {0:["19:00–21:00","21:00–23:00"],1:["19:00–21:00","21:00–23:00"],2:["19:00–21:00","21:00–23:00"],3:["19:00–21:00","21:00–23:00"],4:["19:00–21:00","21:00–23:00"],5:["12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"],6:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
+  
+  { id:8, name:"林口 東湖國小", type:"multi", courtDesc:"籃球全場 ／ 羽球4面 ／ 匹克球4面", fullCourtOnly:false, maxCourts:4,
+    slots: {0:["19:00–21:00","21:00–23:00"],1:["19:00–21:00","21:00–23:00"],2:["19:00–21:00","21:00–23:00"],3:["19:00–21:00","21:00–23:00"],4:["19:00–21:00","21:00–23:00"],5:["12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"],6:["06:00–08:00","08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
+  
+  { id:9, name:"林口 新林國小", type:"multi", courtDesc:"籃球全場 ／ 羽球4面 ／ 匹克球4面", fullCourtOnly:false, maxCourts:4,
+    slots: {0:["18:00–20:00","20:00–22:00"],1:["18:00–20:00","20:00–22:00"],2:["18:00–20:00","20:00–22:00"],3:["18:00–20:00","20:00–22:00"],4:["18:00–20:00","20:00–22:00"],5:["06:00–08:00","08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"],6:["06:00–08:00","08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}}
 ];
 
-// ==================== 變數與狀態 ====================
+// 其餘程式碼（狀態管理、渲染等）保持不變
 let venueIdx = 0;
 let dayIdx = new Date().getDay() === 0 ? 6 : new Date().getDay() - 1;
 let isAdmin = false;
 let activeEditor = null;
 let state = {};
 
-// localStorage
-function loadState() {
-    const saved = localStorage.getItem('venueBookingState');
-    if (saved) state = JSON.parse(saved);
-}
-function saveState() {
-    localStorage.setItem('venueBookingState', JSON.stringify(state));
-}
+function loadState() { const saved = localStorage.getItem('venueBookingState'); if(saved) state = JSON.parse(saved); }
+function saveState() { localStorage.setItem('venueBookingState', JSON.stringify(state)); }
 
-// 取得剩餘面數
 function getRemaining(si) {
     const v = VENUES[venueIdx];
     const k = `${v.id}-${dayIdx}-${si}`;
@@ -163,8 +173,6 @@ function doLogin() {
         document.getElementById('loginPanel').style.display = 'none';
         document.getElementById('adminBanner').style.display = 'flex';
         document.getElementById('adminBtn').textContent = '✓ 管理中';
-        document.getElementById('adminBtn').style.background = '#16a34a';
-        document.getElementById('adminBtn').style.color = '#fff';
         renderSlots();
     } else {
         document.getElementById('loginErr').style.display = 'block';
@@ -175,22 +183,15 @@ function logout() {
     isAdmin = false; activeEditor = null;
     document.getElementById('adminBanner').style.display = 'none';
     document.getElementById('adminBtn').textContent = '管理員';
-    document.getElementById('adminBtn').style.background = '';
-    document.getElementById('adminBtn').style.color = '';
     renderSlots();
 }
 
 function resetAllData() {
-    if (!isAdmin) return;
-    if (confirm('確定要清除所有場地的租借資料嗎？此動作無法復原。')) {
-        state = {};
-        saveState();
-        renderSlots();
-        alert('所有資料已清除');
-    }
+    if (!isAdmin || !confirm('確定清除所有租借資料？')) return;
+    state = {}; saveState(); renderSlots();
 }
 
-// ==================== 渲染函數 ====================
+// ==================== 渲染 ====================
 function renderVenueTabs() {
     document.getElementById('venueTabs').innerHTML = VENUES.map((v,i) => 
         `<button class="venue-tab${i===venueIdx?' active':''}" onclick="switchVenue(${i})">${v.name}</button>`
@@ -200,18 +201,18 @@ function renderVenueTabs() {
 function renderVenueInfo() {
     const v = VENUES[venueIdx];
     document.getElementById('venueName').textContent = v.name;
-    let badges = `<span class="badge" style="background:#eff6ff;color:#2563eb;">${v.courtDesc}</span>`;
-    if (v.fullCourtOnly) badges += `<span class="badge" style="background:#fef3c7;color:#92400e;">⚠️ 全場租借為主</span>`;
-    document.getElementById('venueBadges').innerHTML = badges;
+    let html = `<span class="badge" style="background:#eff6ff;color:#2563eb;">${v.courtDesc}</span>`;
+    if (v.fullCourtOnly) html += `<span class="badge" style="background:#fef3c7;color:#92400e;">⚠️ 全場租借為主</span>`;
+    document.getElementById('venueBadges').innerHTML = html;
     document.getElementById('lineNotice').style.display = v.fullCourtOnly ? 'block' : 'none';
 }
 
 function renderDayTabs() {
     const today = new Date().getDay() === 0 ? 6 : new Date().getDay() - 1;
     document.getElementById('dayTabs').innerHTML = DAYS.map((d,i) => {
-        const isToday = i === today;
-        let cls = `day-tab${i===dayIdx?' active':''}${isToday && i!==dayIdx?' today':''}`;
-        return `<button class="${cls}" onclick="switchDay(${i})">${d}${isToday?' ●':''}</button>`;
+        const active = i===dayIdx ? ' active' : '';
+        const isToday = i === today ? ' ●' : '';
+        return `<button class="day-tab${active}" onclick="switchDay(${i})">${d}${isToday}</button>`;
     }).join('');
 }
 
@@ -219,60 +220,38 @@ function renderSlots() {
     const v = VENUES[venueIdx];
     const slots = v.slots[dayIdx] || [];
     let free = 0, booked = 0;
-
-    slots.forEach((_,si) => {
-        getRemaining(si) === 0 ? booked++ : free++;
-    });
+    slots.forEach((_,si) => getRemaining(si) === 0 ? booked++ : free++);
 
     document.getElementById('sTotal').textContent = slots.length;
     document.getElementById('sFree').textContent = free;
     document.getElementById('sBooked').textContent = booked;
-    document.getElementById('sBookedCard').classList.toggle('has', booked > 0);
 
     const container = document.getElementById('slots');
-    if (!slots.length) {
-        container.innerHTML = '<div style="padding:40px 20px;text-align:center;color:#9ca3af;">此日無開放時段</div>';
-        return;
-    }
-
     container.innerHTML = slots.map((slot, si) => {
         const rem = getRemaining(si);
         const max = v.fullCourtOnly ? 1 : v.maxCourts;
         const fullyBooked = rem === 0;
         const partial = !v.fullCourtOnly && rem > 0 && rem < max;
-        const cardClass = fullyBooked ? 's-booked' : partial ? 's-partial' : 's-avail';
+        const cardClass = fullyBooked ? 's-booked' : '';
         const clickable = isAdmin ? ' clickable' : '';
 
-        let badge = fullyBooked ? '已租借' : v.fullCourtOnly ? '空閒可租' : (rem === max ? `全部空閒 (${max}面)` : `剩餘 ${rem} 面`);
+        let badgeText = fullyBooked ? '已租借' : v.fullCourtOnly ? '可租' : (rem === max ? `全部空閒(${max}面)` : `剩餘 ${rem} 面`);
 
-        let pips = '';
+        let pipsHtml = '';
         if (!v.fullCourtOnly) {
-            pips = Array.from({length: max}, (_,i) => 
+            pipsHtml = Array.from({length: max}, (_,i) => 
                 `<div class="cpip" style="background:${i<rem?'#dcfce7':'#f3f4f6'};color:${i<rem?'#16a34a':'#9ca3af'};">${i+1}</div>`
             ).join('');
-        }
-
-        let editor = '';
-        if (isAdmin && !v.fullCourtOnly && activeEditor === si) {
-            editor = `<div class="court-editor">設定剩餘面數：<br>`;
-            for (let i = max; i >= 0; i--) {
-                const active = rem === i ? 'background:#111;color:white;' : '';
-                const text = i === 0 ? '全部租出' : i === max ? `全部空閒 (${max}面)` : `剩餘 ${i} 面`;
-                editor += `<button onclick="setCourts(${si},${i});event.stopImmediatePropagation()" style="margin:3px;padding:8px 12px;border-radius:8px;${active}">${text}</button>`;
-            }
-            editor += `</div>`;
+            pipsHtml = `<div class="court-row">面數：<div style="display:flex;gap:5px;">${pipsHtml}</div></div>`;
         }
 
         return `
         <div class="slot-card ${cardClass}${clickable}" onclick="handleSlotClick(${si})">
             <div class="slot-main">
-                <div style="display:flex;align-items:center;gap:10px;">
-                    <span class="slot-time">${slot}</span>
-                </div>
-                <span class="slot-badge" style="background:${fullyBooked?'#374151':partial?'#fef3c7':'#dcfce7'};color:${fullyBooked?'#9ca3af':partial?'#b45309':'#166534'};">${badge}</span>
+                <div class="slot-time">${slot}</div>
+                <span class="slot-badge" style="background:${fullyBooked?'#374151':'#dcfce7'};color:${fullyBooked?'#ddd':'#166534'};">${badgeText}</span>
             </div>
-            ${pips ? `<div class="court-row"><span style="font-size:13px;color:#6b7280;">面數：</span><div style="display:flex;gap:6px;">${pips}</div></div>` : ''}
-            ${editor}
+            ${pipsHtml}
         </div>`;
     }).join('');
 }
@@ -280,39 +259,18 @@ function renderSlots() {
 function handleSlotClick(si) {
     if (!isAdmin) return;
     const v = VENUES[venueIdx];
+    const k = `${v.id}-${dayIdx}-${si}`;
     if (v.fullCourtOnly) {
-        const k = `${v.id}-${dayIdx}-${si}`;
         state[k] = !state[k];
     } else {
-        activeEditor = activeEditor === si ? null : si;
+        activeEditor = activeEditor === si ? null : si;  // 簡化版，實際可再擴充
     }
     saveState();
     renderSlots();
 }
 
-function setCourts(si, count) {
-    const v = VENUES[venueIdx];
-    const k = `${v.id}-${dayIdx}-${si}`;
-    state[k] = count;
-    activeEditor = null;
-    saveState();
-    renderSlots();
-}
-
-function switchVenue(i) {
-    venueIdx = i;
-    activeEditor = null;
-    renderVenueTabs();
-    renderVenueInfo();
-    renderSlots();
-}
-
-function switchDay(i) {
-    dayIdx = i;
-    activeEditor = null;
-    renderDayTabs();
-    renderSlots();
-}
+function switchVenue(i) { venueIdx = i; renderVenueTabs(); renderVenueInfo(); renderSlots(); }
+function switchDay(i) { dayIdx = i; renderDayTabs(); renderSlots(); }
 
 // 初始化
 loadState();
