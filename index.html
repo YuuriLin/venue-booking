@@ -7,22 +7,66 @@
     <title>籃海運動場地租借查詢</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #f0f9ff 0%, #bae6fd 100%); min-height: 100vh; color: #1e2937; }
-        .app { max-width: 640px; margin: 0 auto; background: #ffffff; min-height: 100vh; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
-        .topbar { background: linear-gradient(90deg, #1e40af, #3b82f6); color: white; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 99; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            background: linear-gradient(135deg, #f0f9ff 0%, #bae6fd 100%);
+            min-height: 100vh; 
+            color: #1e2937;
+        }
+        .app { 
+            max-width: 640px; 
+            margin: 0 auto; 
+            background: #ffffff; 
+            min-height: 100vh; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+        .topbar { 
+            background: linear-gradient(90deg, #1e40af, #3b82f6); 
+            color: white; 
+            padding: 18px 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            position: sticky; 
+            top: 0; 
+            z-index: 99; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
         .topbar-title { font-size: 19px; font-weight: 700; }
-        .admin-btn { padding: 9px 20px; border-radius: 50px; font-size: 13.5px; font-weight: 600; background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(10px); cursor: pointer; }
-        .login-panel, .admin-banner { margin: 16px; padding: 20px; border-radius: 20px; background: white; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
-        .venue-tabs, .day-tabs { display: flex; overflow-x: auto; padding: 16px; gap: 10px; background: white; }
-        .venue-tab, .day-tab { padding: 11px 18px; font-size: 14.5px; white-space: nowrap; border-radius: 9999px; background: #f1f5f9; border: none; color: #64748b; cursor: pointer; }
+        .admin-btn { 
+            padding: 9px 20px; border-radius: 50px; font-size: 13.5px; font-weight: 600; 
+            background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px); cursor: pointer;
+        }
+        .login-panel, .admin-banner { 
+            margin: 16px; padding: 20px; border-radius: 20px; background: white; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        .venue-tabs, .day-tabs { 
+            display: flex; overflow-x: auto; padding: 16px; gap: 10px; background: white;
+        }
+        .venue-tab, .day-tab { 
+            padding: 11px 18px; font-size: 14.5px; white-space: nowrap; 
+            border-radius: 9999px; background: #f1f5f9; border: none; color: #64748b; cursor: pointer;
+        }
         .venue-tab.active, .day-tab.active { background: #1e40af; color: white; font-weight: 600; }
         .venue-name { font-size: 21px; font-weight: 700; color: #1e2937; margin-bottom: 8px; }
-        .badge { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; padding: 6px 14px; border-radius: 9999px; font-weight: 500; margin: 4px 4px 4px 0; }
+        .badge { 
+            display: inline-flex; align-items: center; gap: 6px; 
+            font-size: 13px; padding: 6px 14px; border-radius: 9999px; 
+            font-weight: 500; margin: 4px 4px 4px 0;
+        }
         .stats { display: flex; gap: 12px; padding: 0 20px 20px; }
-        .stat { flex: 1; padding: 16px 12px; border-radius: 20px; text-align: center; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .stat { 
+            flex: 1; padding: 16px 12px; border-radius: 20px; text-align: center; 
+            background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
         .stat-num { font-size: 29px; font-weight: 700; color: #1e40af; }
         .slots { padding: 0 20px 40px; display: flex; flex-direction: column; gap: 16px; }
-        .slot-card { background: white; border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.06); transition: all 0.25s; }
+        .slot-card { 
+            background: white; border: 1px solid #e2e8f0; border-radius: 20px; 
+            overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.06); transition: all 0.25s;
+        }
         .slot-card.s-booked { background: #fee2e2; border-color: #fca5a5; }
         .slot-card.clickable:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(30, 64, 175, 0.12); }
         .slot-main { padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; }
@@ -78,10 +122,26 @@ const ADMIN_PW = "Blue6677";
 const DAYS = ["週一","週二","週三","週四","週五","週六","週日"];
 
 const VENUES = [
-  // ... 其他場地請保留 ...
+  { id:0, name:"板橋 江翠國小", type:"multi", courtDesc:"籃球全場 ／ 羽球4面 ／ 匹克球4面", fullCourtOnly:true, maxCourts:1,
+    slots:{0:["18:30–20:30","20:30–22:30","22:30–24:30"],1:["18:30–20:30","20:30–22:30","22:30–24:30"],2:["18:30–20:30","20:30–22:30","22:30–24:30"],3:["18:30–20:30","20:30–22:30","22:30–24:30"],4:["18:30–20:30","20:30–22:30","22:30–24:30"],5:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00","22:00–24:00"],6:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00","22:00–24:00"]}},
+  { id:1, name:"三重 二重國小 1F 羽球場", type:"badminton", courtDesc:"羽球4面", fullCourtOnly:false, maxCourts:4,
+    slots:{0:["19:00–21:00","21:00–23:00"],1:["19:00–21:00","21:00–23:00"],2:["19:00–21:00","21:00–23:00"],3:["19:00–21:00","21:00–23:00"],4:["19:00–21:00","21:00–23:00"],5:["12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"],6:["09:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
+  { id:2, name:"三重 二重國小 3F 多功能場館", type:"multi", courtDesc:"籃球全場 ／ 羽球4面 ／ 匹克球4面", fullCourtOnly:true, maxCourts:1,
+    slots:{0:["18:45–20:45","20:45–22:45"],1:["18:45–20:45","20:45–22:45"],2:["18:45–20:45","20:45–22:45"],3:["18:45–20:45","20:45–22:45"],4:["18:45–20:45","20:45–22:45"],5:["12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"],6:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
+  { id:3, name:"新莊 裕民國小", type:"multi", courtDesc:"籃球全場 ／ 羽球4面 ／ 匹克球4面", fullCourtOnly:true, maxCourts:1,
+    slots:{0:["18:30–20:30","20:30–22:30"],1:["18:30–20:30","20:30–22:30"],2:["18:30–20:30","20:30–22:30"],3:["18:30–20:30","20:30–22:30"],4:["18:30–20:30","20:30–22:30"],5:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"],6:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
   { id:4, name:"林口 林口國小", type:"multi", courtDesc:"籃球全場 ／ 羽球4面 ／ 匹克球4面", fullCourtOnly:false, maxCourts:4,
     slots:{0:["19:00–21:00","21:00–23:00"],1:["19:00–21:00","21:00–23:00"],2:["19:00–21:00","21:00–23:00"],3:["19:00–21:00","21:00–23:00"],4:["19:00–21:00","21:00–23:00"],5:["17:00–19:00","19:00–21:00","21:00–23:00"],6:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
-  // ... 其餘場地 ...
+  { id:5, name:"樹林 大同國小", type:"multi", courtDesc:"籃球全場 ／ 羽球3面 ／ 匹克球3面", fullCourtOnly:false, maxCourts:3,
+    slots:{0:["18:30–20:30","20:30–22:30"],1:["18:30–20:30","20:30–22:30"],2:["18:30–20:30","20:30–22:30"],3:["18:30–20:30","20:30–22:30"],4:["18:30–20:30","20:30–22:30"],5:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"],6:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
+  { id:6, name:"林口 麗林國小", type:"badminton", courtDesc:"羽球6面", fullCourtOnly:false, maxCourts:6,
+    slots:{0:["19:00–21:00","21:00–23:00"],1:["19:00–21:00","21:00–23:00"],2:["19:00–21:00","21:00–23:00"],3:["19:00–21:00","21:00–23:00"],4:["19:00–21:00","21:00–23:00"],5:["17:00–19:00","19:00–21:00","21:00–23:00"],6:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
+  { id:7, name:"林口 頭湖國小", type:"badminton", courtDesc:"羽球6面", fullCourtOnly:false, maxCourts:6,
+    slots:{0:["19:00–21:00","21:00–23:00"],1:["19:00–21:00","21:00–23:00"],2:["19:00–21:00","21:00–23:00"],3:["19:00–21:00","21:00–23:00"],4:["19:00–21:00","21:00–23:00"],5:["12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"],6:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
+  { id:8, name:"林口 東湖國小", type:"multi", courtDesc:"籃球全場 ／ 羽球4面 ／ 匹克球4面", fullCourtOnly:false, maxCourts:4,
+    slots:{0:["19:00–21:00","21:00–23:00"],1:["19:00–21:00","21:00–23:00"],2:["19:00–21:00","21:00–23:00"],3:["19:00–21:00","21:00–23:00"],4:["19:00–21:00","21:00–23:00"],5:["12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"],6:["06:00–08:00","08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
+  { id:9, name:"林口 新林國小", type:"multi", courtDesc:"籃球全場 ／ 羽球4面 ／ 匹克球4面", fullCourtOnly:false, maxCourts:4,
+    slots:{0:["18:00–20:00","20:00–22:00"],1:["18:00–20:00","20:00–22:00"],2:["18:00–20:00","20:00–22:00"],3:["18:00–20:00","20:00–22:00"],4:["18:00–20:00","20:00–22:00"],5:["06:00–08:00","08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"],6:["06:00–08:00","08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}}
 ];
 
 let venueIdx = 0;
@@ -90,7 +150,7 @@ let isAdmin = false;
 let activeEditor = null;
 let state = {};
 
-// URL 支援
+// URL 深層連結
 function getVenueFromURL() {
     const params = new URLSearchParams(window.location.search);
     const venueParam = params.get('venue');
@@ -104,12 +164,10 @@ function getVenueFromURL() {
 function loadState() { const saved = localStorage.getItem('venueBookingState'); if(saved) state = JSON.parse(saved); }
 function saveState() { localStorage.setItem('venueBookingState', JSON.stringify(state)); }
 
-// === 林口國小特殊規則 ===
+// 林口國小規則：週一~週六全場模式，週日4面
 function isFullCourtMode() {
-    const v = VENUES[venueIdx];
-    if (v.fullCourtOnly) return true;
-    if (v.id === 4 && dayIdx !== 6) return true;   // 週一~週六 = 全場模式
-    return false;                                   // 週日 = 正常4面模式
+    if (VENUES[venueIdx].id === 4 && dayIdx !== 6) return true;
+    return VENUES[venueIdx].fullCourtOnly || false;
 }
 
 function getMaxCourts() {
@@ -123,7 +181,28 @@ function getRemaining(si) {
     return s !== undefined ? s : getMaxCourts();
 }
 
-// 渲染
+// ==================== 渲染 ====================
+function renderVenueTabs() {
+    document.getElementById('venueTabs').innerHTML = VENUES.map((v,i) => 
+        `<button class="venue-tab${i===venueIdx?' active':''}" onclick="switchVenue(${i})">${v.name}</button>`
+    ).join('');
+}
+
+function renderVenueInfo() {
+    const v = VENUES[venueIdx];
+    document.getElementById('venueName').textContent = v.name;
+    let html = `<span class="badge" style="background:#dbeafe;color:#1e40af;">${v.courtDesc}</span>`;
+    if (isFullCourtMode()) html += `<span class="badge" style="background:#fef3c7;color:#92400e;">⚠️ 全場租借為主</span>`;
+    document.getElementById('venueBadges').innerHTML = html;
+}
+
+function renderDayTabs() {
+    document.getElementById('dayTabs').innerHTML = DAYS.map((d,i) => {
+        const active = i===dayIdx ? ' active' : '';
+        return `<button class="day-tab${active}" onclick="switchDay(${i})">${d}</button>`;
+    }).join('');
+}
+
 function renderSlots() {
     const v = VENUES[venueIdx];
     const slots = v.slots[dayIdx] || [];
@@ -148,11 +227,9 @@ function renderSlots() {
         if (isAdmin && activeEditor === si) {
             editor = `<div class="court-editor">設定狀態：<br>`;
             if (isFullMode) {
-                // 全場模式（週一~週六）
                 editor += `<button class="ce-btn" style="${rem > 0 ? 'background:#1e40af;color:white;' : ''}" onclick="setRemaining(${si},1)">全場可租</button>`;
                 editor += `<button class="ce-btn" style="${rem === 0 ? 'background:#1e40af;color:white;' : ''}" onclick="setRemaining(${si},0)">全部租出</button>`;
             } else {
-                // 週日正常4面模式
                 for (let i = 4; i >= 0; i--) {
                     const active = (rem === i) ? 'background:#1e40af;color:white;' : '';
                     const text = i === 0 ? '全部租出' : `剩餘 ${i} 面`;
@@ -173,7 +250,6 @@ function renderSlots() {
     }).join('');
 }
 
-// 其他函數（保持不變）
 function handleSlotClick(si) {
     if (!isAdmin) return;
     activeEditor = activeEditor === si ? null : si;
