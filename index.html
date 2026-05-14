@@ -223,7 +223,7 @@ const VENUES = [
     slots:{0:["18:30–20:30","20:30–22:30"],1:["18:30–20:30","20:30–22:30"],2:["18:30–20:30","20:30–22:30"],3:["18:30–20:30","20:30–22:30"],4:["18:30–20:30","20:30–22:30"],5:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"],6:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
 
   { id:4, name:"林口 林口國小", type:"multi", courtDesc:"籃球全場 ／ 羽球4面 ／ 匹克球4面", fullCourtOnly:false, maxCourts:1,
-    dayMaxCourts: {6: 4},
+    dayMaxCourts: {6: 4}, // 週日可4面
     slots:{0:["19:00–21:00","21:00–23:00"],1:["19:00–21:00","21:00–23:00"],2:["19:00–21:00","21:00–23:00"],3:["19:00–21:00","21:00–23:00"],4:["19:00–21:00","21:00–23:00"],5:["17:00–19:00","19:00–21:00","21:00–23:00"],6:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
 
   { id:5, name:"樹林 大同國小", type:"multi", courtDesc:"籃球全場 ／ 羽球3面 ／ 匹克球3面", fullCourtOnly:false, maxCourts:3,
@@ -237,13 +237,13 @@ const VENUES = [
   { id:7, name:"林口 麗林國小", type:"badminton", courtDesc:"羽球6面", fullCourtOnly:false, maxCourts:6,
     slots:{0:["19:00–21:00","21:00–23:00"],1:["19:00–21:00","21:00–23:00"],2:["19:00–21:00","21:00–23:00"],3:["19:00–21:00","21:00–23:00"],4:["19:00–21:00","21:00–23:00"],5:["17:00–19:00","19:00–21:00","21:00–23:00"],6:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
 
-  { id:8, name:"林口 頭湖國小", type:"badminton", courtDesc:"羽球6面", fullCourtOnly:false, maxCourts:6,
+  { id:8, name:"林口 頭湖國小", type:"badminton", courtDesc:"羽球3面", fullCourtOnly:false, maxCourts:3,
     slots:{0:["19:00–21:00","21:00–23:00"],1:["19:00–21:00","21:00–23:00"],2:["19:00–21:00","21:00–23:00"],3:["19:00–21:00","21:00–23:00"],4:["19:00–21:00","21:00–23:00"],5:["12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"],6:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
 
   { id:9, name:"林口 東湖國小", type:"multi", courtDesc:"籃球全場 ／ 羽球4面 ／ 匹克球4面", fullCourtOnly:false, maxCourts:4,
     slots:{0:["19:00–21:00","21:00–23:00"],1:["19:00–21:00","21:00–23:00"],2:["19:00–21:00","21:00–23:00"],3:["19:00–21:00","21:00–23:00"],4:["19:00–21:00","21:00–23:00"],5:["12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"],6:["06:00–08:00","08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
 
-  { id:10, name:"林口 新林國小", type:"multi", courtDesc:"籃球全場 ／ 羽球4面 ／ 匹克球4面", fullCourtOnly:false, maxCourts:4,
+  { id:10, name:"林口 新林國小", type:"multi", courtDesc:"籃球全場 ／ 羽球4面 ／ 匹克球4面／排球2面", fullCourtOnly:false, maxCourts:4,
     slots:{0:["18:00–20:00","20:00–22:00"],1:["18:00–20:00","20:00–22:00"],2:["18:00–20:00","20:00–22:00"],3:["18:00–20:00","20:00–22:00"],4:["18:00–20:00","20:00–22:00"],5:["06:00–08:00","08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"],6:["06:00–08:00","08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}}
 ];
 
@@ -275,9 +275,10 @@ function getRemaining(si) {
     
     let max = v.maxCourts || 1;
     if (v.dayMaxCourts && v.dayMaxCourts[dayIdx] !== undefined) max = v.dayMaxCourts[dayIdx];
-    return s !== undefined ? Math.min(s, max) : max;
+    return s !== undefined ? s : max;
 }
 
+// ==================== 管理員功能 ====================
 function handleAdminBtn() {
     if (isAdmin) { logout(); return; }
     document.getElementById('loginPanel').style.display = 'block';
@@ -302,6 +303,7 @@ function logout() {
     renderSlots();
 }
 
+// ==================== 渲染 ====================
 function renderVenueTabs() {
     document.getElementById('venueTabs').innerHTML = VENUES.map((v,i) => 
         `<button class="venue-tab${i===venueIdx?' active':''}" onclick="switchVenue(${i})">${v.name}</button>`
@@ -337,22 +339,34 @@ function renderSlots() {
     const container = document.getElementById('slots');
     container.innerHTML = slots.map((slot, si) => {
         const rem = getRemaining(si);
-        const max = v.fullCourtOnly ? 1 : (v.dayMaxCourts && v.dayMaxCourts[dayIdx] !== undefined ? v.dayMaxCourts[dayIdx] : v.maxCourts);
+        let max = v.fullCourtOnly ? 1 : (v.dayMaxCourts && v.dayMaxCourts[dayIdx] !== undefined ? v.dayMaxCourts[dayIdx] : v.maxCourts);
         const fullyBooked = rem === 0;
         const clickable = isAdmin ? ' clickable' : '';
 
-        let badge = fullyBooked ? '已全租' : v.fullCourtOnly ? '可租' : `剩餘 ${rem}/${max} 面`;
+        let badge = '';
+        if (fullyBooked) {
+            badge = '已全租';
+        } else if (v.fullCourtOnly) {
+            badge = '可租';
+        } else if (rem === max) {
+            badge = `剩餘全場 (${max}面)`;
+        } else {
+            badge = `剩餘 ${rem}/${max} 面`;
+        }
 
-        let pips = !v.fullCourtOnly ? Array.from({length: max}, (_,i) => 
-            `<div class="cpip" style="background:${i<rem?'#22d3ee':'#e2e8f0'};color:${i<rem?'#164e63':'#64748b'};">${i+1}</div>`
-        ).join('') : '';
+        let pips = '';
+        if (!v.fullCourtOnly) {
+            pips = Array.from({length: max}, (_,i) => 
+                `<div class="cpip" style="background:${i<rem?'#22d3ee':'#e2e8f0'};color:${i<rem?'#164e63':'#64748b'};">${i+1}</div>`
+            ).join('');
+        }
 
         let editor = '';
         if (isAdmin && activeEditor === si && !v.fullCourtOnly) {
             editor = `<div class="court-editor">設定剩餘面數：<br>`;
             for (let i = max; i >= 0; i--) {
                 const active = rem === i ? 'background:#1e40af;color:white;' : '';
-                const text = i === 0 ? '全部租出' : `剩餘 ${i} 面`;
+                const text = i === 0 ? '全部租出' : i === max ? `全場 (${max}面)` : `剩餘 ${i} 面`;
                 editor += `<button class="ce-btn" style="${active}" onclick="setRemaining(${si},${i});event.stopImmediatePropagation()">${text}</button>`;
             }
             editor += '</div>';
