@@ -341,17 +341,15 @@ function renderSlots() {
         const fullyBooked = rem === 0;
         const clickable = isAdmin ? ' clickable' : '';
 
+        // === 顯示文字邏輯 ===
         let badge = '';
         if (fullyBooked) {
             badge = '已全租';
         } else if (v.fullCourtOnly) {
             badge = '可租';
-        } 
-        // === 二重3F 週三特別處理 (最高優先) ===
-        else if (v.id === 2 && dayIdx === 2) {
+        } else if (v.id === 2 && dayIdx === 2) {
             badge = rem === 2 ? `剩餘半場 (${rem}面)` : `剩餘 ${rem}面`;
-        } 
-        else if (rem === max) {
+        } else if (rem === max) {
             badge = `剩餘全場 (${max}面)`;
         } else {
             badge = `剩餘 ${rem}/${max} 面`;
@@ -364,12 +362,22 @@ function renderSlots() {
             ).join('');
         }
 
+        // === 管理員編輯按鈕特別處理 ===
         let editor = '';
         if (isAdmin && activeEditor === si && !v.fullCourtOnly) {
             editor = `<div class="court-editor">設定剩餘面數：<br>`;
             for (let i = max; i >= 0; i--) {
                 const active = rem === i ? 'background:#1e40af;color:white;' : '';
-                const text = i === 0 ? '全部租出' : i === max ? `全場 (${max}面)` : `剩餘 ${i} 面`;
+                let text = '';
+                if (i === 0) {
+                    text = '全部租出';
+                } else if (v.id === 2 && dayIdx === 2 && i === 2) {
+                    text = `半場 (${i}面)`;           // ← 這裡特別改成半場
+                } else if (i === max) {
+                    text = `全場 (${max}面)`;
+                } else {
+                    text = `剩餘 ${i} 面`;
+                }
                 editor += `<button class="ce-btn" style="${active}" onclick="setRemaining(${si},${i});event.stopImmediatePropagation()">${text}</button>`;
             }
             editor += '</div>';
