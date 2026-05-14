@@ -10,158 +10,41 @@
         body { 
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
             background: linear-gradient(135deg, #f0f9ff 0%, #bae6fd 100%);
-            min-height: 100vh; 
-            color: #1e2937;
+            min-height: 100vh; color: #1e2937;
         }
-        .app { 
-            max-width: 640px; 
-            margin: 0 auto; 
-            background: #ffffff; 
-            min-height: 100vh; 
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-        }
-        .topbar { 
-            background: linear-gradient(90deg, #1e40af, #3b82f6);
-            color: white;
-            padding: 18px 20px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            position: sticky; 
-            top: 0; 
-            z-index: 99;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+        .app { max-width: 640px; margin: 0 auto; background: #ffffff; min-height: 100vh; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
+        .topbar { background: linear-gradient(90deg, #1e40af, #3b82f6); color: white; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 99; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .topbar-title { font-size: 19px; font-weight: 700; }
+        .admin-btn { padding: 9px 20px; border-radius: 50px; font-size: 13.5px; font-weight: 600; background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(10px); cursor: pointer; }
 
-        .admin-btn { 
-            padding: 9px 20px; 
-            border-radius: 50px; 
-            font-size: 13.5px; 
-            font-weight: 600; 
-            background: rgba(255,255,255,0.2); 
-            color: white; 
-            border: 1px solid rgba(255,255,255,0.3);
-            backdrop-filter: blur(10px);
-            cursor: pointer;
-        }
-
-        .login-panel, .admin-banner { 
-            margin: 16px; 
-            padding: 20px; 
-            border-radius: 20px; 
-            background: white; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-        }
-
-        .venue-tabs { 
-            display: flex; 
-            overflow-x: auto; 
-            padding: 16px 16px 10px; 
-            gap: 10px; 
-            background: white;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        .venue-tab { 
-            padding: 11px 18px; 
-            font-size: 14.5px; 
-            white-space: nowrap; 
-            border-radius: 9999px; 
-            background: #f1f5f9; 
-            border: none; 
-            color: #64748b;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .venue-tab.active { 
-            background: #1e40af; 
-            color: white; 
-            font-weight: 600;
-        }
+        .login-panel, .admin-banner { margin: 16px; padding: 20px; border-radius: 20px; background: white; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+        .venue-tabs, .day-tabs { display: flex; overflow-x: auto; padding: 16px; gap: 10px; background: white; }
+        .venue-tab, .day-tab { padding: 11px 18px; font-size: 14.5px; white-space: nowrap; border-radius: 9999px; background: #f1f5f9; border: none; color: #64748b; cursor: pointer; }
+        .venue-tab.active, .day-tab.active { background: #1e40af; color: white; font-weight: 600; }
 
         .venue-name { font-size: 21px; font-weight: 700; color: #1e2937; margin-bottom: 8px; }
-        .badge { 
-            display: inline-flex; align-items: center; gap: 6px; 
-            font-size: 13px; padding: 6px 14px; 
-            border-radius: 9999px; font-weight: 500; margin: 4px 4px 4px 0;
-        }
-
-        .day-tabs { 
-            display: flex; gap: 10px; padding: 16px; overflow-x: auto; background: white;
-        }
-        .day-tab { 
-            padding: 10px 18px; border-radius: 9999px; font-size: 14px; 
-            background: #f8fafc; border: 1px solid #e2e8f0;
-            white-space: nowrap; cursor: pointer;
-        }
-        .day-tab.active { 
-            background: #1e40af; color: white; border-color: #1e40af;
-        }
+        .badge { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; padding: 6px 14px; border-radius: 9999px; font-weight: 500; margin: 4px 4px 4px 0; }
 
         .stats { display: flex; gap: 12px; padding: 0 20px 20px; }
-        .stat { 
-            flex: 1; padding: 16px 12px; border-radius: 20px; 
-            text-align: center; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
+        .stat { flex: 1; padding: 16px 12px; border-radius: 20px; text-align: center; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .stat-num { font-size: 29px; font-weight: 700; color: #1e40af; }
 
         .slots { padding: 0 20px 40px; display: flex; flex-direction: column; gap: 16px; }
+        .slot-card { background: white; border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.06); transition: all 0.25s; }
+        .slot-card.s-booked { background: #fee2e2; border-color: #fca5a5; }
+        .slot-card.clickable:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(30, 64, 175, 0.12); }
 
-        .slot-card { 
-            background: white; 
-            border: 1px solid #e2e8f0; 
-            border-radius: 20px; 
-            overflow: hidden; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-            transition: all 0.25s;
-        }
-        .slot-card.s-booked { 
-            background: #fee2e2; 
-            border-color: #fca5a5; 
-        }
-        .slot-card.clickable:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 15px 30px rgba(30, 64, 175, 0.12); 
-        }
-
-        .slot-main { 
-            padding: 18px 20px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-        }
+        .slot-main { padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; }
         .slot-time { font-size: 17px; font-weight: 700; color: #1e2937; }
 
         .court-row { padding: 0 20px 16px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-        .cpip { 
-            width: 36px; height: 36px; border-radius: 10px; 
-            display: flex; align-items: center; justify-content: center; 
-            font-size: 13.5px; font-weight: 700;
-        }
+        .cpip { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 13.5px; font-weight: 700; }
 
-        .court-editor { 
-            padding: 16px 20px; 
-            background: #f0f9ff; 
-            border-top: 1px solid #bae6fd;
-        }
-        .ce-btn { 
-            padding: 10px 16px; margin: 4px 4px; border-radius: 12px; 
-            font-size: 14px; cursor: pointer; background: white; border: 1px solid #bae6fd;
-        }
+        .court-editor { padding: 16px 20px; background: #f0f9ff; border-top: 1px solid #bae6fd; }
+        .ce-btn { padding: 10px 16px; margin: 4px 4px; border-radius: 12px; font-size: 14px; cursor: pointer; background: white; border: 1px solid #bae6fd; }
 
-        .footer { 
-            padding: 40px 20px 60px; 
-            text-align: center; 
-            color: #64748b; 
-            font-size: 14px; 
-            line-height: 1.6;
-        }
-        .qrcode { 
-            max-width: 180px; 
-            margin: 15px auto; 
-            border-radius: 16px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
+        .footer { padding: 40px 20px 60px; text-align: center; color: #64748b; font-size: 14px; line-height: 1.6; }
+        .qrcode { max-width: 180px; margin: 15px auto; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
@@ -174,9 +57,7 @@
     <div class="login-panel" id="loginPanel" style="display:none">
         <div style="font-weight:600;margin-bottom:12px;">管理員登入</div>
         <div style="display:flex;gap:10px;">
-            <input id="pwInput" type="password" placeholder="輸入管理密碼" 
-                   style="flex:1;padding:14px;border-radius:12px;border:1px solid #cbd5e1;" 
-                   onkeydown="if(event.key==='Enter')doLogin()">
+            <input id="pwInput" type="password" placeholder="輸入管理密碼" style="flex:1;padding:14px;border-radius:12px;border:1px solid #cbd5e1;" onkeydown="if(event.key==='Enter')doLogin()">
             <button onclick="doLogin()" style="padding:0 24px;border-radius:12px;background:#1e40af;color:white;border:none;font-weight:600;">確認</button>
         </div>
         <div id="loginErr" style="color:#ef4444;font-size:13px;margin-top:10px;display:none;">密碼錯誤</div>
@@ -223,14 +104,11 @@ const DAYS = ["週一","週二","週三","週四","週五","週六","週日"];
 const VENUES = [
   { id:0, name:"板橋 江翠國小", type:"multi", courtDesc:"籃球全場 ／ 羽球4面 ／ 匹克球4面", fullCourtOnly:true, maxCourts:1,
     slots:{0:["18:30–20:30","20:30–22:30","22:30–24:30"],1:["18:30–20:30","20:30–22:30","22:30–24:30"],2:["18:30–20:30","20:30–22:30","22:30–24:30"],3:["18:30–20:30","20:30–22:30","22:30–24:30"],4:["18:30–20:30","20:30–22:30","22:30–24:30"],5:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00","22:00–24:00"],6:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00","22:00–24:00"]}},
-
   { id:1, name:"三重 二重國小 1F 羽球場", type:"badminton", courtDesc:"羽球4面", fullCourtOnly:false, maxCourts:4,
     slots:{0:["19:00–21:00","21:00–23:00"],1:["19:00–21:00","21:00–23:00"],2:["19:00–21:00","21:00–23:00"],3:["19:00–21:00","21:00–23:00"],4:["19:00–21:00","21:00–23:00"],5:["12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"],6:["09:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
-
   { id:2, name:"三重 二重國小 3F 多功能場館", type:"multi", courtDesc:"籃球全場 ／ 羽球4面 ／ 匹克球4面", fullCourtOnly:false, maxCourts:4,
     dayMaxCourts: {2: 2},
     slots:{0:["18:45–20:45","20:45–22:45"],1:["18:45–20:45","20:45–22:45"],2:["18:45–20:45","20:45–22:45"],3:["18:45–20:45","20:45–22:45"],4:["18:45–20:45","20:45–22:45"],5:["12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"],6:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
-
   { id:3, name:"新莊 裕民國小", type:"multi", courtDesc:"籃球全場 ／ 羽球4面 ／ 匹克球4面", fullCourtOnly:true, maxCourts:1,
     slots:{0:["18:30–20:30","20:30–22:30"],1:["18:30–20:30","20:30–22:30"],2:["18:30–20:30","20:30–22:30"],3:["18:30–20:30","20:30–22:30"],4:["18:30–20:30","20:30–22:30"],5:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"],6:["08:00–10:00","10:00–12:00","12:00–14:00","14:00–16:00","16:00–18:00","18:00–20:00","20:00–22:00"]}},
 
@@ -282,8 +160,12 @@ function getRemaining(si) {
     const v = VENUES[venueIdx];
     const k = `${v.id}-${dayIdx}-${si}`;
     const s = state[k];
-    if (v.id === 4 && dayIdx !== 6) return s === true ? 0 : 1;  // 林口平日全場模式
+    
+    if (v.id === 4 && dayIdx !== 6) return s === true ? 0 : 1;   // 林口平日
+    if ((v.id === 2 && dayIdx !== 2)) return s === true ? 0 : 1; // 二重3F 非週三
+    
     if (v.fullCourtOnly) return s === true ? 0 : 1;
+    
     let max = v.maxCourts || 1;
     if (v.dayMaxCourts && v.dayMaxCourts[dayIdx] !== undefined) max = v.dayMaxCourts[dayIdx];
     return s !== undefined ? s : max;
@@ -323,7 +205,7 @@ function renderVenueInfo() {
     const v = VENUES[venueIdx];
     document.getElementById('venueName').textContent = v.name;
     let html = `<span class="badge" style="background:#dbeafe;color:#1e40af;">${v.courtDesc}</span>`;
-    if (v.fullCourtOnly || (v.id === 4 && dayIdx !== 6)) {
+    if (v.fullCourtOnly || (v.id === 4 && dayIdx !== 6) || (v.id === 2 && dayIdx !== 2)) {
         html += `<span class="badge" style="background:#fef3c7;color:#92400e;">⚠️ 全場租借為主</span>`;
     }
     document.getElementById('venueBadges').innerHTML = html;
@@ -349,39 +231,32 @@ function renderSlots() {
     const container = document.getElementById('slots');
     container.innerHTML = slots.map((slot, si) => {
         const rem = getRemaining(si);
-        const isLinkouWeekday = (v.id === 4 && dayIdx !== 6);
-        let max = isLinkouWeekday ? 1 : (v.fullCourtOnly ? 1 : (v.dayMaxCourts?.[dayIdx] ?? v.maxCourts));
+        const isFullCourtOnlyMode = v.fullCourtOnly || (v.id === 4 && dayIdx !== 6) || (v.id === 2 && dayIdx !== 2);
+        let max = isFullCourtOnlyMode ? 1 : (v.dayMaxCourts?.[dayIdx] ?? v.maxCourts);
         const fullyBooked = rem === 0;
         const clickable = isAdmin ? ' clickable' : '';
 
-        let badge = '';
-        if (fullyBooked) badge = '已全租';
-        else if (isLinkouWeekday || v.fullCourtOnly) badge = '可租';
-        else if (v.id === 2 && dayIdx === 2) badge = rem === 2 ? `剩餘半場 (${rem}面)` : `剩餘 ${rem}面`;
-        else if (rem === max) badge = `剩餘全場 (${max}面)`;
-        else badge = `剩餘 ${rem}/${max} 面`;
+        let badge = fullyBooked ? '已全租' : isFullCourtOnlyMode ? '可租' 
+                   : (v.id === 2 && dayIdx === 2 && rem === 2) ? `剩餘半場 (${rem}面)` 
+                   : (rem === max) ? `剩餘全場 (${max}面)` : `剩餘 ${rem}/${max} 面`;
 
-        let pips = (max > 1) ? Array.from({length: max}, (_,i) => 
+        let pips = (!isFullCourtOnlyMode && max > 1) ? Array.from({length: max}, (_,i) => 
             `<div class="cpip" style="background:${i<rem?'#22d3ee':'#e2e8f0'};color:${i<rem?'#164e63':'#64748b'};">${i+1}</div>`
         ).join('') : '';
 
         let editor = '';
         if (isAdmin && activeEditor === si) {
             editor = `<div class="court-editor">設定狀態：<br>`;
-            if (isLinkouWeekday) {
-                // 林口國小平日只顯示兩個按鈕
+            
+            if (isFullCourtOnlyMode) {
+                // 簡化模式：全場 / 全部租出
                 editor += `<button class="ce-btn" style="${rem > 0 ? 'background:#1e40af;color:white;' : ''}" onclick="setRemaining(${si},1)">全場</button>`;
                 editor += `<button class="ce-btn" style="${rem === 0 ? 'background:#1e40af;color:white;' : ''}" onclick="setRemaining(${si},0)">全部租出</button>`;
             } else if (v.id === 2 && dayIdx === 2) {
+                // 二重3F 週三
                 for (let i = 2; i >= 0; i--) {
                     const active = rem === i ? 'background:#1e40af;color:white;' : '';
                     const text = i === 2 ? `半場 (${i}面)` : i === 0 ? '全部租出' : `剩餘 ${i} 面`;
-                    editor += `<button class="ce-btn" style="${active}" onclick="setRemaining(${si},${i})">${text}</button>`;
-                }
-            } else {
-                for (let i = max; i >= 0; i--) {
-                    const active = rem === i ? 'background:#1e40af;color:white;' : '';
-                    const text = i === 0 ? '全部租出' : i === max ? `全場 (${max}面)` : `剩餘 ${i} 面`;
                     editor += `<button class="ce-btn" style="${active}" onclick="setRemaining(${si},${i})">${text}</button>`;
                 }
             }
